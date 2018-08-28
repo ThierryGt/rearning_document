@@ -10,17 +10,6 @@ import json
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf8')
 logging.basicConfig(filename='error.log', level=logging.INFO)
 
-# 79405410@qq.com
-# z63j10p20
-
-# 账号：账号：yw805ztdz349@163.com
-# 密码：
-# 密码：qq049380
-# 账号：fyjbwx
-# 密码：qq730021
-
-# wenyitaiwx
-# qq@1234
 
 class WeChatSpider(object):
     def __init__(self, browser, url, te, ):
