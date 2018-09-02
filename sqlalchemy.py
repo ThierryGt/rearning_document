@@ -38,7 +38,7 @@ db.session.add(test_role1)
 db.session.add(test_role2)
 db.session.commit()
 
-#查询数据库
+#查询数据库,不存在则返回None
 db.session.query(role).filter_by(id=2).first()  # 查询role表中id为2的第一个匹配项目，用".字段名"获取字段值
 db.session.query(role).all()  # 得到一个list，返回role表里的所有role实例
 db.session.query(role).filter(role.id == 2).first() # 结果与第一种一致
@@ -50,3 +50,14 @@ db.session.query(role).filter(role.name_cn.endswith('管理员')).all()  # 获�
 user = db.session.query(role).filter_by(id=6).first()  # 将role表中id为6的name改为change
 user.name = 'change'
 db.session.commit()
+# 删除
+db.session.delete(test_role1)
+db.session.commit()
+
+# 不存在的条目,使用git_or_404代替get(),first_or_404()代替first(),就可以抛出一个404错误而不是None
+@app.route('/user/<username>')
+def show_user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('show_user.html', user=user)
+
+
