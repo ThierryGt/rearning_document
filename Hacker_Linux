@@ -1,0 +1,65 @@
+/bin中目录是二进制文件的存储位置.一般是Linux运行的程序
+/etc通常是存储配置文件的位置,在Linux中,几乎所有东西都配置了一个存储在/etc下的文本文件
+/dev目录包含设备的文件,类似于Windows设备驱动程序
+/var通常存储日志文件以及其他文件
+pwd：当前工作目录
+cd：更改正在使用的目录
+whoami：返回我们登录的用户名称
+ls：列出目录或子目录
+ls -la：列出目录或子目录下的权限
+touch：创建文件
+mkdir：创建目录
+man：命令手册
+-h/--help：获取特定命令的帮助
+cp：复制文件
+mv：重命名或移动文件
+cat：查看文件内容
+more：翻页查看(b键上一页,空格下一页,回车下一行)
+ifconfig：显示有关网络配置的关键信息
+find -name filename：提供filename来查找文件相应的位置
+echo $PATH：回显变量中的值来检查路径变量设置
+which ls：返回在二进制中搜索的文件
+whereis filename：可以在任何目录中找寻
+locate filename：使用数据库查找文件(无法搜寻到最新文件,需每天更新)
+tar xvf .tar：解压tar文件
+ifconfig eth0 ip address：更改ip地址
+ifconfig eth0 ip_address netmask 255.255.255.0 broadcast ip_address：修改网络掩码和广播地址
+dhclient：调用服务器(DHCP客户端)
+dig DNS(baidu.com) ns：提供关于域的信息
+dig DNS(baidu.com) mx：获得关于电子邮件服务器的信息
+/etc/resolv.conf：文件可以指出DNS服务到本地DNS服务器或公共DNS服务器
+ls -l：d开头则是一个目录, -开头就是一个文件
+chmod 777 filename：修改文件权限
+ps aux：查看系统上运行的所有进程
+top：显示顶级进程,展示了使用最多资源的流程
+kill -9：杀死进程
+renice：改变进程优先级,(0表示最高,127表示最低,只可以使用进程号)
+set：查看环境变量
+echo $ HISTSIZE：查看变量内的值
+PS1=” World’s Best Hacker”：更改终端提示
+PATH=$PATH:/：指定相应的应用程序后可以快速启动
+head：类似于cat命令,查看文件前十行(可在后面添加-30指定查看行列)
+tail：同上,查看文件后十行
+nl 显示行号
+grep：过滤文件中的数据
+uname -a：检查系统内核
+cat /proc/version：同上
+less /etc/sysctl.conf：查看内核配置文件
+lsmod：列出内核安装模块
+insmod：加载或插入模块
+rmmod：删除模块
+modprobe -l：查看内核安装模块
+modprobe -r：删除模块
+ls -l /etc/modprobe.d/：查看已安装模块配置文件
+标准输入(stdin),标准输出(stdout),标准错误(stderror)
+标准输出默认值是计算机屏幕,犯错或程序抛出错误时,会将错误消息发送给stanadard错误
+0表示stdin,1表示stdout,2表示stderr
+1，屏幕显示错误输出， 存储标准输出
+ls /etc/hosts /etc/aircrack-ng -1>goodoutput
+2，屏幕显示标准输出，存储错误输出
+ls /etc/hosts /etc/aircrack-ng -2>erroroutput
+3，标准输出和错误输出存储单独文件
+ls /etc/hosts etc/aircrack-ng 1>goodoutput 2>erroroutput
+4，标准输出和标准输入存储同一文件
+ls /etc/hosts /etc/aircrack-ng >goodoutput 2>&1
+
