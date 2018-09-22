@@ -62,4 +62,13 @@ ls /etc/hosts /etc/aircrack-ng -2>erroroutput
 ls /etc/hosts etc/aircrack-ng 1>goodoutput 2>erroroutput
 4，标准输出和标准输入存储同一文件
 ls /etc/hosts /etc/aircrack-ng >goodoutput 2>&1
-
+locate *.py: 查看所有py文件
+定时任务(crontab)
+    Minute：命令或将运行的确切分钟数(0-59)
+    Hour：运行命令或作业的确切小时数(0-23)
+    Day for the Month：命令或作业运行的确切日期(1-31)
+    Month：命令或作业运行的确切日期(1-12)
+    Day of the week：命令运行的确切日期
+    User：运行的用户权限
+    Command：运行的命令
+eg: 05 2 * * 1,2,3,4,5 root nmap -sV --script=ssl -heartbleed 68.76.0.0/16 
