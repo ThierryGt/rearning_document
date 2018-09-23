@@ -72,3 +72,71 @@ locate *.py: 查看所有py文件
     User：运行的用户权限
     Command：运行的命令
 eg: 05 2 * * 1,2,3,4,5 root nmap -sV --script=ssl -heartbleed 68.76.0.0/16 
+Linux文件结构: The Superblock, The Inode Table, Data Blocks
+The SuperBlock: 包含有关文件系统的信息部分,包括inode和数据块的数量以及每个文件中的数据量。
+The Inode Table: 包含描述文件系统中的文件或目录的inode(信息节点).是个描述文件(或目录)及其所有关键信息的记录,不包含文件中的数据
+Data Blocks: 存储文件中的位置,以及文件名
+硬盘驱动器：IDE和SCSI
+IDE(或更高版本,E-IDE)：相对较慢,只允许四台设备,必须配置主从配置.每个主从组合都有一根电缆和控制器
+SCSI(小型计算机系统接口)：不需要主/从配置,而是配置了控制器和一系列最多15个设备
+/dev/usb: usb设备
+/dev/lp: 并行端口打印机
+/dev/tty: 本地终端
+# 擦除驱动器,删除所有数据
+dd if = /dev/null of = /dev/sda
+# 初始化文件或硬盘驱动器
+/dev/zero
+# 始终返回"设备已满"错误,用于测试程序如何响应"磁盘已满"错误,可为任何进程测试提供无限数量的空字节字符
+/dev/full
+# 用作输入,用随机或更精确的伪随机数据填充文件或分区.可用来覆盖文件或分区,使得已删除文件更难恢复
+/dev/random
+dd if = /dev/random of = evidencefile bs = 1 count = 1024
+
+GRUB
+/boot/grub/grub.cfg: 主配置文件(替换menu.lst)
+/etc/grub.d: 此目录包含构建grub.cfg的脚本
+/etc/default/grub: 此文件包含GRUB菜单设置
+
+ls -l /etc/grub.d
+00_header: 此脚本从/etc/default/grub加载设置
+05_debian_theme: 此脚本定义颜色,背景等
+10_linux: 此脚本加载菜单项
+20_memtest86: 这个脚本加载内存测试器
+30_os-prober: 此脚本扫描硬盘驱动器以查找其他操作系统
+40_custom: 这是手动添加其他菜单条目的模板
+
+# 该文件包含GRUB的许多自定义参数,须运行"update-grub"使更改生效,然后更改grub.cfg文件
+more /etc/default/grub
+
+init.d: 系统启动时运行的初始化守护程序,确定运行级别和启动时激活的守护进程,内核启动系统init.d,它始终具有1的进程ID(PID)
+init: 进程启动一系列脚本,使系统可供使用,诸如检查文件系统然后按照它并启动所需的任何系统守护程序之类的事情
+
+apache2 service
+Timeout: 服务器完成每个请求的时间,默认设置为300,
+KeepAlive: 意味着服务器对来自同一客户端的多个请求保持活动状态.默认情况下为"on",意味着客户端不必为每个请求创建新连接
+MaxKeepAliveRequests: 建立连接的请求之间的最大秒数,如果将此值设置为0,则时间量不受限制
+KeepAliveTimeout: 连接保持活动的请求之间的时间量
+
+# 打包软件
+tar -cvf new_filename.tar filename
+# 显示打包文件内容
+tar -tvf new_filename.tar 
+# 提取文件
+tar -xf new_filename.tar
+# gzip解压缩,会修改文件扩展名为.tar.gz
+gzip new_filename.*
+# gunzip解压缩,不以.tar.gz扩展名保存
+gunzip new_filename.*
+# bzip2解压缩,会修改文件扩展名为.tar.bz2
+bzip2 new_filename.* 
+# bunzip2解压缩,不以.tar.bz2扩展名保存
+bunzip2 new_filename.*
+
+Df: 提供任何硬盘或已安装驱动器(如CD,DVD或闪存驱动器)的基本信息
+lsblk: 列出每个块设备的一些基本信息
+
+启动过程: BIOS(基本输入/输出系统)开始,然后MBR(主启动记录)执行GRUB(GRand Unified Bootloader),
+然后内核执行init(初始化或第一个过程),最后,运行程序从/etc/rc.d执行
+
+
+
