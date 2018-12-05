@@ -230,5 +230,5 @@ def upload():
 @app.route('/download/<string:filename>', methods=['GET'])
 def download(filename):
     if request.method == "GET":
-        if os.path.isfile(os.path.join('/var/www/flask/static/uploads/20181205', filename)):
-            return send_from_directory('/var/www/flask/static/uploads/20181205', filename, as_attachment=True)
+        if os.path.isfile(os.path.join('filepath', filename)):
+            return send_from_directory('filepath', filename, as_attachment=True)
