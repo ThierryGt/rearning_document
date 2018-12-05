@@ -174,5 +174,61 @@ def sub(l, start, end):
 <p>{{ [1,2,3,4,5] | sub(1,4)}}</p>
 
 
+# 信号接收器,flask扩展可用到
+from blinker import Namespace
+
+app = Flask(__name__)
+my_signals = Namespace()
+model_saved = my_signals.signal('model_saved')
 
 
+@app.route("/")
+def index():
+    model_saved.send(app, data1="A Signal", data2={1: 1})
+    return "发送成功"
+
+
+@model_saved.connect_via(app)           #装饰器，接收app通过model_saved发送而来的信号
+def signal_recv(app,data1,data2):       #第一个参数app代表发送者，后面的参数为接收到的数据的键所对应的值
+    print('信号接收函数:{0}，{1}'.format(data1,data2))
+    pass
+
+
+def gen_rnd_filename():
+    filename_prefix = datetime.now().strftime('%Y%m%d%H%M%S')
+    return '%s%s' % (filename_prefix, str(random.randrange(1000, 10000)))
+
+# 控制文件上传大小(16M)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+# 上传文件
+@app.route("/upload",methods=['GET','POST'])
+def upload():
+    if request.method=="POST":
+        fileobj = request.files["file"]
+        fname, fext = os.path.splitext(fileobj.filename)
+        upload_name = [".jpeg", ".jpg", ".gif", ".png"]
+        if upload_name.count(fext) == 1:
+            rnd_name = "%s%s"%(gen_rnd_filename(), fext)
+            filepath = os.path.join(current_app.root_path, "static/uploads/%s"%rnd_name[0:8], rnd_name)
+            dirname = os.path.dirname(filepath)
+            if not os.path.exists(dirname):
+                try:
+                    os.makedirs(dirname)
+                except:
+                    return "创建目录失败"
+            if not os.access(dirname, os.W_OK):
+                return "创建目录不可写"
+            fileobj.save(filepath)
+            url = url_for("static", filename="%s/%s/%s"%("uploads", rnd_name[0:8], rnd_name))
+            return url
+        return "文件名不允许"
+    return render_template('upload.html')
+
+
+# 下载文件
+@app.route('/download/<string:filename>', methods=['GET'])
+def download(filename):
+    if request.method == "GET":
+        if os.path.isfile(os.path.join('/var/www/flask/static/uploads/20181205', filename)):
+            return send_from_directory('/var/www/flask/static/uploads/20181205', filename, as_attachment=True)
