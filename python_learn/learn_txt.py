@@ -18,6 +18,7 @@ print({
                 "center()": "字符位居中",
                 "ljust()": "左对齐",
                 "rjust()": "右对齐",
+                "string.printable": "预定义100个可打印的ASCII字符",
     },
     "list": {
                 "append()": "添加元素至尾部",
@@ -75,11 +76,227 @@ print({
     "decode()": "字节串转换为Unicode字符串",
     "re": {
                 "match()": "从源字符串的开头开始匹配",
-                ".": "代表任何单一字符",
+                ".": "代表任何单一字符,除\n外",
                 "*": "代表任意一个它之前的字符, .*代表任意多个字符(包括0)",
-                "search()": "寻找首次匹配"
-    }
+                "search()": "寻找首次匹配",
+                "findall()": "寻找所有匹配",
+                "?": "字符可选(0个或1个)",
+                "split()": "按匹配切分",
+                "sub()": "替换匹配",
+                "\d": "一个数字字符",
+                "\D": "一个非数字字符",
+                "\w": "一个字符或数字字符",
+                "\W": "一个非字母非数字字符",
+                "\s": "空白字符",
+                "\S": "非空白字符",
+                "\b": "单词边界",
+                "\B": "非单词边界",
+                "abc": "文本值abd",
+                "(expr)": "expr",
+                "^": "源字符串的开头",
+                "$": "源字符串的结尾",
+                "prev?": "0个或1个prev",
+                "prev*": "0个或多个prev, 尽可能多地匹配",
+                "prev*?": "0个或多个prev, 尽可能少地匹配",
+                "prev+": "1个或多个prev, 尽可能地多匹配",
+                "prev+?": "1个或多个prev，尽可能少地匹配",
+                "prev{m}": "m个连续的prev",
+                "prev{m, n}": "m到n个连续的prev，尽可能多地匹配",
+                "prev{m, n}?": "m到n个连续的prev, 尽可能少地匹配",
+                "[abc]": "a或b或c(和a|b|c)一样",
+                "[^abc]": "非a或b或c",
+                "prev(?=next)": "如果后面为next, 返回prev",
+                "prev(?!next)": "如果后面非next, 返回prev",
+                "(?<=prev)next": "如果前面非prev, 返回next",
+                "(?<!prev)next": "如果前面非prev，返回next",
+                "groups()": "使用match()或search()时,匹配结果返回元祖",
+    },
+    "文件输入/输出": {
+                "fileobj = open(filename, mode)": {
+                                                    "fileobj": "open返回的文件对象",
+                                                    "filename": "是该文件的字符串名",
+                                                    "mode": {
+                                                            "r": "表示读模式",
+                                                            "w": "表示写模式,如果文件不存在则新建,存在则重写新内容",
+                                                            "x": "表示在文件不存在的情况下新创建并写入文件",
+                                                            "a": "表示如果文件存在,在文件末尾追加写内容",
+                                                            "t(或者省略)": "代表文本类型",
+                                                            "b": "代表二进制文件",
+                                                    }
+                                                    "sep分隔符": "默认是一个空格' '",
+                                                    "end结束符": "默认是一个换行符'\n'",
+                                                    "read()": "一次返回,可通过chunk设置最大的读入字符数",
+                                                    "readline()": "每次读入文件的一行",
+                                                    "readlines()": "每次读取一行,并返回单行字符串的列表",
+                                                    "tell()": "返回距离文件开始处的字节偏移量",
+                                                    "seek(offset, origin)允许跳转到文件其他字节偏移量的位置"{
+                                                                                                            "origin=0": "默认为0,从开头偏移offset个字节",
+                                                                                                            "origin=1": "从当前位置处偏移offset个字节",
+                                                                                                            "origin=2": "距离最后结尾处偏移offset个字节",
+                                                    }
+                },
+    },
+    "SQL": {
+        "CREATE DATABASE dbname": "创建数据库",
+        "USE dbname": "选择当前数据库",
+        "DROP DATABASE dbname": "删除数据库以及表单",
+        "CREATE TABLE tbname": "创建表单",
+        "DEOP TABLE tbname": "删除表单",
+        "TRUNCATE TABLE tbname": "删除表单中所有的行",
+        "Create": "使用INSERT语句创建",
+        "Read": "使用SELECT语句选择",
+        "Update": "使用UPDATE语句更新",
+        "Delete": "使用DELETE语句删除", 
+        "INSERT INTO tbname VALUES(...)": "增加行",
+        "SELECT * FROM tbname": "选择全部行和全部列",
+        "SELECT cols FORM tbname": "选择全部行和部分列",
+        "SELECT cols FORM tbname WHERE condition": "选择部分行部分列",
+        "UPDATE tbname SET col=value WHERE condition": "修改一列的部分行",
+        "DELETE FROM tbname WHERE condition": "删除部分行",
+        "connect()": "连接数据库,包含参数用户名,密码,服务器地址",
+        "cursor": "创建一个cursor对象来管理查询",
+        "execute()/executemany()": "对数据库执行一个或多个SQL命令",
+        "fetchone()/fetchmany()/fetchall()": "得到execute之后的结果",
+    },
+    "SQLite": {
+        "critter": "可变长度的字符串, 作为主键",
+        "count": "某动物的总数的整数值",
+        "damages": "人和动物的互动中损失的美元数目",
+    },
+    "SQLAlchemy": {
+        "dialect+driver://user:password@host:port/dbname":{
+            "dialect": "数据库类型",
+            "driver": "使用该数据库的特定驱动程序",
+            "user/password": "数据库认证字符串",
+            "host/port": "数据库服务器位置与端口号",
+            "dbname": "初始连接到服务器中的数据库",
+            },
+    },
+    "NoSQL":{
+        "dbm family": {
+            "r": "读",
+            "w": "写",
+            "c": "表示读和写",
+            "del": "删除值",
+            "keys()": "遍历键(类似于遍历字典)",
+        },
+        "redis": {
+            "set": "赋值",
+            "get": "通过key获取值",
+            "setnx()": "当键不存在时设定值",
+            "getset()": "返回旧的值,并赋新的值",
+            "getrange()": "获取值(get.key)的偏移量",
+            "setrange()": "替换值(get.key)的偏移量, setrange('key', 0, 'newvalue')",
+            "mset()": "设置多个键值对",
+            "delete()": "删掉一个键",
+            "incr()/incrbyfloat()": "数值计算,增加值, 可使用负数",
+            "decr()": "数值计算, 减少值",
+            "list/仅能包含字符串": {
+                "lpush()": "在开始处插入",
+                "linsert()": {
+                    "linsert('listname', 'before', 'oldvalue', 'newvalue')": "在一个值(oldvalue)的前面插入新值(newvalue)",
+                    "linsert('listname', 'after', 'oldvalue', 'newvalue')": "在一个值(oldvalue)的后面插入新值(newvalue)",
+                    },
+            "lset()": "函数在偏移量出插入(列表必须已经存在)",
+            "rpush()": "结尾处插入",
+            "lindex()": "函数取到给定偏移量处的值",
+            "lrange()": "函数取到给定偏移量范围(0, -1)的值",
+            "ltrim()": "函数仅保留列表中给定范围的值",
+            }
+
+        }
+    },
+    
 })
+# dbm family
+def dbmfamily_learn():
+    import dbm
+    db = dbm.open("definitions", "c")
+    db["mustard"] = "yellow"
+    db["pesto"] = "green"
+
+
+# SQLAlchemy_ORM
+import sqlalchemy as sa
+from sqlalchemy.ext.declarative import declarative_base
+conn = sa.create_engine("sqlite:///zoo.db")
+Base = declarative_base()
+class Zoo(Base):
+    __tablename__ == "zoo"
+    critter = sa.Column("critter", sa.String, primary_key=True)
+    count = sa.Column("count", sa.Integer)
+    damage = sa.Column("damages", sa.Float)
+
+    def __init__(self, critter, count, damages):
+        self.critter = critter
+        self.count = count
+        self.damages = damages
+
+    def __repr__(self):
+        return "<Zoo({}, {}, {})>".format(self.critter, self.count, self.damages
+
+Base.metadata.create_all(conn)
+first = Zoo('duck', 10, 0.0)
+second = Zoo('bear', 2, 1000.0)
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind=conn)
+session = Session()
+session.add(first)
+session.commit()
+
+
+# SQLAlchemy
+def SQLAlchemy_learn2()
+    import sqlalchemy as sa
+    conn = sa.create_engine("sqlite://")
+    meta = sa.MetaData()
+    zoo = sa.Table("zoo", meta,
+        sa.Column("critter", sa.String, primary_key = True),
+        sa.Column("count", sa.Integer),
+        sa.Column("damages", sa.Float)
+    )
+    meta.create_all(conn)
+    conn.execute(zoo.insert(('bear', 2, 1000.0)))
+    conn.execute(zoo.insert(('weasel', 1, 2000.0)))
+    result = conn.execute(zoo.select())
+    rows = result.fetchall()
+    print(rows)
+    # [('bear', 2, 1000.0), ('weasel', 1, 2000.0), ('duck', 10, 0.0)]
+
+
+# SQLAlchemy
+def SQLAlchemy_learn():
+    import sqlalchemy as sa
+    conn = sa.create_engine("sqlite://")
+    # conn.execute()会返回一个SQLAlchemy的对象ResultProxy
+    conn.execute("""CREATE TABLE zoo
+    (critter VARCHAR(20) PRIMARY KEY,
+    count INT,
+    damages FLOAT)""")
+    ins = 'INSERT INTO zoo (critter, count, damages) VALUES (?, ?, ?)'
+    conn.execute(ins, 'duck', 10, 0.0)
+    conn.execute(ins, 'bear', 2, 1000.0)
+    # rows不是一个列表,不可直接输出,可像列表迭代(for in)
+    rows = conn.execute("SELECT * FROM zoo")
+
+
+# SQLite
+def SQLite_learn():
+    import sqlite3
+    # 创建数据库enterprise.db
+    conn = sqlite3.connect("enterprise.db")
+    # 创建操作对象
+    curs = conn.cursor()
+    curs.execute("""CREATE TABLE zoo
+    (critter, VARCHAR(20) PRIMARY KEY,
+     count INT,
+     damages FLOAT)
+    """)
+    # 使用 placeholder 可以更安全, 使用三个问号表示要插入三个值
+    ins = "INSERT INTO zoo(critter, count, damages) VALUES(?, ?, ?)"
+    curs.execute(ins, ("weasel", 1, 2000.0))
+
+
 
 
 # 合并及运算符
@@ -141,7 +358,6 @@ def unicode_test(value):
     # lookup(): 接受不区分大小写的标准名称,返回一个Unicode字符
     value2 = unicodedata.lookup(name)
     print("value='%s', name='%s', value2='%s'"%(value, name, value2))
-
 
 
 if __name__ == "__main__":
