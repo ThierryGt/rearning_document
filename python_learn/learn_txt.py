@@ -202,12 +202,59 @@ print({
             "lindex()": "函数取到给定偏移量处的值",
             "lrange()": "函数取到给定偏移量范围(0, -1)的值",
             "ltrim()": "函数仅保留列表中给定范围的值",
-            }
+            },
+            "哈希表, 只能有一层结构,不能进行嵌套": {
+                "hset()/conn.hmset('song', 'do': 'a deer')": "创建哈希表song, 并设置字段do的值, 多值使用字典包裹".
+                "hget()/conn.hget('song', 'do')": "使用函数hget()获取字段do的值",
+                "hmget()": "获取多个字段的值",
+                "hkeys()": "获取所有字段的键",
+                "hvals()/conn.hvals('song')": "取到song所有字段的值",
+                "hlen()/conn.hlen('song')": "返回song字段的总数",
+                "hgetall()/conn.hgetall()": "取到所有字段的键和值, 字典结构",
+                "hsetnx()": "对字段中不存在的键赋值"
+            },
+            "集合": {
+                "sadd()/conn.sadd('zoo', 'duck', 'goat', 'turkey')": "zoo集合添加值",
+                "scard()/conn.scard('zoo')": "返回zoo集合中的数目(长度)",
+                "smembers()/conn.smembers('zoo')": "返回zoo集合中的所有值",
+                "srem()/conn.srem('zoo', 'turkey')": "从zoo集合中删除一个值turkey",
+                "sinter()/conn.sinter('zoo', 'better_zoo')": "返回集合zoo和better_zoo的交集",
+                "sinterstore()/sinterstore('fowl_zoo', 'zoo', 'better_zoo')": "获得集合zoo和better_zoo的交集,并存储到新集合fowl_zoo",
+                "sunion()/sunion('zoo', 'better_zoo')": "返回集合的并集",
+                "sunionstore()": "存储并集结果到新集合(), 同交集使用方法相同",
+                "sdiff()": "返回集合的差集",
+                "sdiffstore()": "存储集合的差集到新集合()",
+            },
+            "位图/bit()": "省空间且快速处理超大集合数字的方式",
 
         }
     },
     
 })
+
+# bit
+def bitset()
+    days = ['2013-02-25', '2013-02-26', '2013-02-27']
+    big_spender = 1089
+    tire_kicker = 40459
+    late_joiner = 550212
+    # 每天是一个单独的键, 对应用户的ID设置位,
+    # 例如days[0]有来自big_spender(ID 1089)与tire_kicter(ID 40459)
+    # 第一天
+    conn.setbit(days[0], big_spender, 1)
+    conn.setbit(days[0], tire_kicker, 1)
+    # 第二天
+    conn.setbit(days[1], big_spender, 1)
+    # 第三天
+    conn.setbit(days[2], big_spender, 1)
+    conn.setbit(days[2], bit_spender, 1)
+    # 统计三天的日访客数
+    for day in days:
+        conn.bitcount(day)
+    # 212    
+
+
+
 # dbm family
 def dbmfamily_learn():
     import dbm
