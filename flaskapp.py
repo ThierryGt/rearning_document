@@ -232,3 +232,20 @@ def download(filename):
     if request.method == "GET":
         if os.path.isfile(os.path.join('filepath', filename)):
             return send_from_directory('filepath', filename, as_attachment=True)
+
+
+def date(self, datetime):
+    import re
+    import time
+    if re.match('\d+分钟前', datetime):
+        minute = re.match('(\d+)', datetime).group(1)
+        datetime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() - float(minute) * 60))
+    if re.match('\d+小时前', datetime):
+        hour = re.match('(\d+)', datetime).group(1)
+        datetime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() - float(hour) * 60 * 60))
+    if re.match('昨天', datetime):
+        datetime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() - 24 * 60 * 60))
+    if re.match('\d+天前', datetime):
+        day = re.match('(\d+)', datetime).group(1)
+        datetime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() - float(day) * 24 * 60 * 60))
+    return time.mktime(time.strptime(datetime, "%Y-%m-%d %H:%M:%S"))
